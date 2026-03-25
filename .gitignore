@@ -22,9 +22,24 @@ env/
 .DS_Store
 Thumbs.db
 
-# IDE
-.vscode/
-.idea/
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Logs
 *.log
+logs/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/dist-ssr/
+frontend/*.local
