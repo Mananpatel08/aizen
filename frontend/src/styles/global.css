@@ -1,3 +1,101 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── Light mode (default) ─────────────────────────────────── */
+:root {
+  --c-base: #f5f4ff;
+  --c-surface: #ffffff;
+  --c-elevated: #f0eeff;
+  --c-card: #ebe8ff;
+  --c-hover: #e0dbff;
+  --c-border: rgba(109, 40, 217, 0.16);
+  --c-border-sub: rgba(109, 40, 217, 0.08);
+  --c-border-act: rgba(109, 40, 217, 0.5);
+  --c-accent: #7c3aed;
+  --c-accent-hi: #6d28d9;
+  --c-accent-glow: rgba(124, 58, 237, 0.25);
+  --c-accent-dim: rgba(124, 58, 237, 0.1);
+  --c-text: #1a1030;
+  --c-text-2: #5b4d80;
+  --c-text-3: #9585b8;
+  --c-ai-bg: #ffffff;
+  --c-code-bg: #f3f0ff;
+  --c-code-txt: #2d1b69;
+}
+
+/* ── Dark mode ────────────────────────────────────────────── */
+.dark {
+  --c-base: #0a0a0f;
+  --c-surface: #111118;
+  --c-elevated: #17171f;
+  --c-card: #1e1e28;
+  --c-hover: #25252f;
+  --c-border: rgba(255, 255, 255, 0.1);
+  --c-border-sub: rgba(255, 255, 255, 0.06);
+  --c-border-act: rgba(138, 92, 246, 0.5);
+  --c-accent: #8a5cf6;
+  --c-accent-hi: #a78bfa;
+  --c-accent-glow: rgba(138, 92, 246, 0.35);
+  --c-accent-dim: rgba(138, 92, 246, 0.12);
+  --c-text: #f0f0f5;
+  --c-text-2: #9898ad;
+  --c-text-3: #5a5a72;
+  --c-ai-bg: #17171f;
+  --c-code-bg: #0d0d12;
+  --c-code-txt: #c9d1d9;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  html {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    @apply font-sans;
+  }
+
+  body {
+    background-color: var(--c-base);
+    color: var(--c-text);
+    -webkit-font-smoothing: antialiased;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+}
+
+/* ── Custom scrollbars (can't be done in Tailwind JSX) ───── */
+@layer utilities {
+  .scroll-custom::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scroll-custom::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroll-custom::-webkit-scrollbar-thumb {
+    background: var(--c-border);
+    border-radius: 4px;
+  }
+
+  .scroll-thin::-webkit-scrollbar {
+    width: 3px;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background: var(--c-border);
+    border-radius: 3px;
+  }
+}
