@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import type { ChatMessage } from "../../types";
 import TypingDots from "./TypingDots";
 import { AiAvatar } from "./AiAvatar";
 import { AnimatedText } from "./AnimatedText";
-import { SourceCard } from "./SourceCard";
 import { File } from "lucide-react";
 
 export const MessageBubble: React.FC<{ message: ChatMessage }> = ({
   message,
 }) => {
   const isUser = message.role === "user";
-  const [showSources, setShowSources] = useState(false);
+  // const [showSources, setShowSources] = useState(false);
   const hasSources = message.sources && message.sources.length > 0;
 
   if (message.isLoading) {
@@ -64,13 +63,13 @@ export const MessageBubble: React.FC<{ message: ChatMessage }> = ({
               {/* <ChevronDown className="w-4 h-4" /> */}
             </button>
 
-            {showSources && (
+            {/* {showSources && (
               <div className="flex flex-col gap-1.5 mt-2 animate-slide-down">
                 {message.sources!.map((src, i) => (
                   <SourceCard key={i} source={src} index={i} />
                 ))}
               </div>
-            )}
+            )} */}
           </div>
         )}
       </div>
