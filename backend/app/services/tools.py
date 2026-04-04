@@ -18,4 +18,5 @@ def web_search(search_query: str) -> str:
     - If the user asks for a definition, concept, or historical fact, keep the query general (e.g., "Vector Database architecture").
     - If the user asks for live prices, news, or current events, append the current month and year to the query.
     """
-    return duck_search.invoke({"query": search_query})
+    return tavily_search.invoke({"query": search_query})
+    # return duck_search.invoke({"query": search_query})       #Use DuckDuckGo if Tavlly is down or rate-limited.

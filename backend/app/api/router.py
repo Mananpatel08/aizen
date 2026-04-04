@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from app.services import generate_answer, web_search
+from app.services import generate_answer
 
 router = APIRouter()
 
