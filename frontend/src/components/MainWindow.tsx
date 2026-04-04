@@ -71,7 +71,7 @@ export const AizenMainWindow = (props: Props) => {
           {!hasMessages ? (
             <WelcomeScreen onSuggestion={handleSend} />
           ) : (
-            <div className="flex flex-col px-2 py-6 gap-1 max-w-[820px] mx-auto w-full">
+            <div className="flex flex-col px-2 py-6 gap-1 max-w-[1000px] mx-auto w-full">
               {messages.map((m) => (
                 <MessageBubble key={m.id} message={m} />
               ))}

@@ -44,7 +44,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSuggestion }) => (
           onClick={() => onSuggestion(s.text)}
           className="flex items-center gap-2.5 px-4 py-2.5 bg-c-card border border-[var(--c-border-sub)] rounded-[8px]
                      cursor-pointer text-left transition-all duration-200
-                     hover:border-[var(--c-border-act)] hover:bg-c-hover hover:shadow-card"
+                     hover:border-[var(--c-border-act)] hover:bg-c-hover"
         >
           <span className="text-xl shrink-0">{s.icon}</span>
           <span className="text-[13px] text-c-text-2 leading-snug">

@@ -32,11 +32,11 @@ export const MessageBubble: React.FC<{ message: ChatMessage }> = ({
       <div className="max-w-[75%]">
         <div
           className={`
-            rounded-[8px] px-[18px] transition-colors duration-300
+            rounded-[8px] px-[18px] transition-colors duration-300 py-2.5
             ${
               isUser
-                ? "rounded-tr-[2px] bg-gradient-to-br from-[#8a5cf6] to-[#6d28d9] py-2"
-                : "rounded-tl-[2px] bg-c-ai-bg border border-[var(--c-border-sub)] py-4"
+                ? "rounded-tr-[2px] bg-gradient-to-br from-[#8a5cf6] to-[#6d28d9]"
+                : "rounded-tl-[2px] bg-c-ai-bg border border-[var(--c-border-sub)]"
             }
           `}
         >

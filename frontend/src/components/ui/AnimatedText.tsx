@@ -1,10 +1,13 @@
+import { ExternalLink } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-export function parseInline(text: string): React.ReactNode {
+function parseInline(text: string): React.ReactNode {
   const parts: React.ReactNode[] = [];
-  const re = /(\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`)/g;
+  const re =
+    /(\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`|\[([^\]]+)\]\((https?:\/\/[^\)]+)\))/g;
   let last = 0,
     m;
+
   while ((m = re.exec(text)) !== null) {
     if (m.index > last) parts.push(text.slice(last, m.index));
     if (m[2])
@@ -28,6 +31,20 @@ export function parseInline(text: string): React.ReactNode {
           {m[4]}
         </code>,
       );
+    else if (m[5] && m[6]) {
+      const url = m[6];
+      const label = m[5];
+      parts.push(
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-0.5 text-c-accent underline underline-offset-2 hover:text-c-accent-hi hover:decoration-c-accent-hi transition-colors cursor-pointer"
+        >
+          {label}
+        </a>,
+      );
+    }
     last = m.index + m[0].length;
   }
   if (last < text.length) parts.push(text.slice(last));
@@ -38,13 +55,67 @@ export function parseInline(text: string): React.ReactNode {
   );
 }
 
-export function renderContent(content: string): React.ReactNode[] {
+function renderTable(lines: string[], key: number): React.ReactNode {
+  const rows = lines.map((l) =>
+    l
+      .split("|")
+      .slice(1, -1)
+      .map((cell) => cell.trim()),
+  );
+  const [header, , ...body] = rows; // skip separator row
+
+  return (
+    <div
+      key={key}
+      className="my-2.5 overflow-x-auto rounded-xl border border-[var(--c-border)]"
+    >
+      <table className="w-full text-[13.5px] text-c-text border-collapse">
+        <thead>
+          <tr className="bg-c-code-bg border-b border-[var(--c-border)]">
+            {header.map((cell, i) => (
+              <th
+                key={i}
+                className="px-4 py-2 text-left font-semibold text-c-accent"
+              >
+                {parseInline(cell)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {body.map((row, ri) => (
+            <tr
+              key={ri}
+              className="border-b border-[var(--c-border-sub)] last:border-0 hover:bg-c-accent-dim transition-colors"
+            >
+              {row.map((cell, ci) => (
+                <td key={ci} className="px-4 py-2">
+                  {parseInline(cell)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function renderContent(content: string): React.ReactNode[] {
   const nodes: React.ReactNode[] = [];
   let inCode = false,
     codeLines: string[] = [],
     codeLang = "";
+  let tableLines: string[] = [];
+
+  const flushTable = (i: number) => {
+    if (tableLines.length >= 2) nodes.push(renderTable(tableLines, i));
+    tableLines = [];
+  };
 
   content.split("\n").forEach((line, i) => {
+    const isTableRow = line.trim().startsWith("|") && line.trim().endsWith("|");
+
     if (line.startsWith("```")) {
       if (!inCode) {
         inCode = true;
@@ -75,6 +146,13 @@ export function renderContent(content: string): React.ReactNode[] {
     if (inCode) {
       codeLines.push(line);
       return;
+    }
+
+    if (isTableRow) {
+      tableLines.push(line);
+      return;
+    } else if (tableLines.length) {
+      flushTable(i);
     }
 
     if (line.startsWith("### "))
@@ -125,7 +203,7 @@ export function renderContent(content: string): React.ReactNode[] {
         </p>,
       );
   });
-
+  if (tableLines.length) flushTable(content.length);
   return nodes;
 }
 
@@ -156,7 +234,12 @@ export const AnimatedText: React.FC<{ content: string }> = ({ content }) => {
         renderContent(content)
       ) : (
         <>
-          {renderContent(shown)}
+          {renderContent(
+            shown
+              .split("\n")
+              .filter((line) => !line.trim().startsWith("|"))
+              .join("\n"),
+          )}
           <span className="inline-block w-[2px] h-[14px] bg-c-accent-hi ml-[2px] align-middle rounded-sm animate-blink" />
         </>
       )}

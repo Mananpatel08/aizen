@@ -1,4 +1,4 @@
-import { ArrowUp, SendHorizontalIcon } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import React, { useState, useRef } from "react";
 import type { KeyboardEvent } from "react";
 
@@ -7,25 +7,6 @@ interface ChatInputProps {
   isLoading: boolean;
   hasMessages: boolean;
 }
-
-const SendIcon = () => (
-  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-    <path
-      d="M22 2L11 13"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M22 2L15 22l-4-9-9-4 20-7z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 const SpinnerIcon = () => (
   <svg className="w-4 h-4 animate-spin-btn" viewBox="0 0 24 24" fill="none">
@@ -78,32 +59,34 @@ const ChatInput: React.FC<ChatInputProps> = ({
       {/* Input wrapper */}
       <div
         className={`
-          flex items-center gap-2.5 bg-c-elevated border-[0.5px] border-[var(--c-border)]
+          flex items-end gap-2.5 bg-c-elevated border-[0.5px] border-[var(--c-border)]
           rounded-[10px] pl-[18px] pr-2.5 py-2 transition-all duration-200
-          max-w-[820px] mx-auto
+          max-w-[1000px] mx-auto
           focus-within:border-[var(--c-border-act)]
           focus-within:shadow-[0_0_0_3px_var(--c-accent-dim),0_0_30px_var(--c-accent-glow)]
           ${isLoading ? "opacity-70" : ""}
         `}
       >
-        <textarea
-          ref={ref}
-          id="chat-input"
-          rows={1}
-          value={value}
-          disabled={isLoading}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKey}
-          onInput={handleInput}
-          placeholder="Ask Aizen anything..."
-          aria-label="Chat message input"
-          className="
-            flex-1 bg-transparent border-0 outline-none resize-none
+        <div className="flex-1">
+          <textarea
+            ref={ref}
+            id="chat-input"
+            rows={1}
+            value={value}
+            disabled={isLoading}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={handleKey}
+            onInput={handleInput}
+            placeholder="Ask Aizen anything..."
+            aria-label="Chat message input"
+            className="
+            w-full bg-transparent border-0 outline-none resize-none
             font-inter text-[14.5px] text-c-text leading-[1.55]
             min-h-[24px] max-h-[160px] overflow-y-auto scroll-thin
             placeholder:text-c-text-3
           "
-        />
+          />
+        </div>
         <button
           id="send-button"
           onClick={handleSend}
