@@ -28,23 +28,19 @@
 ## 📷 Screenshots
 
 <p>
-  <a href="https://plane.so" target="_blank">
     <img
       src="frontend/public/ex/welcome.png"
       alt="Plane Views"
       width="100%"
     />
-  </a>
 </p>
 
 <p>
-  <a href="https://plane.so" target="_blank">
     <img
       src="frontend/public/ex/message-window.png"
       alt="Plane Views"
       width="100%"
     />
-  </a>
 </p>
 
 ## 🛠️ Tech Stack
