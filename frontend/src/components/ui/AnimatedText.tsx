@@ -1,4 +1,3 @@
-import { ExternalLink } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 function parseInline(text: string): React.ReactNode {

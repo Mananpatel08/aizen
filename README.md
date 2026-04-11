@@ -65,7 +65,7 @@
 |----------|-------------|---------|
 | `GROQ_API_KEY` | Your Groq API key — get it at [console.groq.com](https://console.groq.com) | required |
 | `TAVILY_API_KEY` | Your Tavily API key — get it at [tavily.com](https://tavily.com/) sign up and create a key in the dashboard | required |
-| `GROQ_MODEL_NAME` | Groq-hosted Llama model to use | `qwen/qwen3-32b` |
+| `GROQ_MODEL_NAME` | Groq-hosted model to use | `qwen/qwen3-32b` |
 | `TEMPERATURE` | AI creativity level (0.0 = strict, 1.0 = creative) | `0.1` |
 
 ### Frontend — `frontend/.env`
